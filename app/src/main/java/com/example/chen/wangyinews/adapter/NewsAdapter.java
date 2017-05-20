@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.chen.wangyinews.Inter.OnClickEvent;
 import com.example.chen.wangyinews.R;
 import com.example.chen.wangyinews.data.NewsData;
 
@@ -22,13 +23,24 @@ import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
     private List<NewsData.ResultBean.DataBean> mNewsList;
-    public NewsAdapter(List<NewsData.ResultBean.DataBean> newsList){
+    private OnClickEvent mOnClickEvent;
+    public NewsAdapter(List<NewsData.ResultBean.DataBean> newsList,OnClickEvent onClickEvent){
         this.mNewsList = newsList;
+        this.mOnClickEvent = onClickEvent;
     }
     @Override
     public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news,parent,false);
-        NewsViewHolder holder = new NewsViewHolder(view);
+        final NewsViewHolder holder = new NewsViewHolder(view);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                NewsData.ResultBean.DataBean news = mNewsList.get(position);
+                String url = news.getUrl();
+                mOnClickEvent.goToDetail(url);
+            }
+        });
         return holder;
     }
 

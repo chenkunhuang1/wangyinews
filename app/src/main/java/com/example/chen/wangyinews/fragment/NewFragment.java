@@ -1,10 +1,13 @@
 package com.example.chen.wangyinews.fragment;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.chen.wangyinews.Inter.OnClickEvent;
 import com.example.chen.wangyinews.R;
+import com.example.chen.wangyinews.activity.WebActivity;
 import com.example.chen.wangyinews.adapter.NewsAdapter;
 import com.example.chen.wangyinews.data.NewsData;
 import com.google.gson.Gson;
@@ -31,10 +36,11 @@ import okhttp3.Response;
  * Created by chen on 2017/5/17.
  */
 
-public class NewFragment extends Fragment {
+public class NewFragment extends Fragment implements OnClickEvent,SwipeRefreshLayout.OnRefreshListener{
     private static final int MSG_GET_NEWS = 1001;
     private int mTYPE;
     private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private NewsAdapter mNewsAdapter;
     private List<NewsData.ResultBean.DataBean> mList = new ArrayList<>();
     private final String URL1 = "http://v.juhe.cn/toutiao/index?type=top&key=d34c49d35647f184e7c780ec73486b77";
@@ -54,7 +60,15 @@ public class NewFragment extends Fragment {
         Log.e("AAA", "onCreateView");
         View view =  inflater.inflate(R.layout.fragment_news,container,false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_view);
-        mNewsAdapter = new NewsAdapter(mList);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        //设置下拉圆圈上的颜色
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light);
+        //设置手指在下拉多少距离会触发下拉更新
+        mSwipeRefreshLayout.setDistanceToTriggerSync(400);
+        mSwipeRefreshLayout.setProgressBackgroundColor(R.color.colorPrimary);
+        mSwipeRefreshLayout.setSize(SwipeRefreshLayout.LARGE);
+        mNewsAdapter = new NewsAdapter(mList,this);
         mRecyclerView.setAdapter(mNewsAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;
@@ -138,4 +152,23 @@ public class NewFragment extends Fragment {
     }
 
 
+    @Override
+    public void goToDetail(String url) {
+        Intent i = new Intent(NewFragment.this.getContext(),WebActivity.class);
+        i.putExtra("url",url);
+        startActivity(i);
+    }
+
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                /*mNewsAdapter.changData(mList);*/
+                // 停止刷新
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 1000); // 1秒后发送消息，停止刷新
+
+    }
 }

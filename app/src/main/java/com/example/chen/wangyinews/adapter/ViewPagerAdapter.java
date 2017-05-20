@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.chen.wangyinews.Inter.OnClickEvent;
+
 import java.util.List;
 
 /**
@@ -15,6 +17,7 @@ import java.util.List;
 public class ViewPagerAdapter extends PagerAdapter {
     private List<View> mViews;
     private Context mContext;
+
     public ViewPagerAdapter(List<View> mViews,Context mContext){
         this.mViews = mViews;
         this.mContext = mContext;
