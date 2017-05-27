@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 
 import com.example.chen.wangyinews.R;
@@ -17,6 +18,7 @@ import com.tencent.smtt.sdk.WebViewClient;
 
 
 public class WebActivity extends AppCompatActivity {
+    private String url;
     private com.tencent.smtt.sdk.WebView webView;
     /*private String url = WebActivity.this.getIntent().getStringExtra("url");*/
     @Override

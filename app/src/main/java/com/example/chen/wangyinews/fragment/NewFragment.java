@@ -77,11 +77,11 @@ public class NewFragment extends Fragment implements OnClickEvent,SwipeRefreshLa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mTYPE = getArguments().getInt("NEWSTYPE");
-        Log.e("AAAA",mTYPE+"");
+        Bundle bundle = getArguments();
+        mTYPE = bundle.getInt("NEWSTYPE");
         initHandler();
         getNewsFromJuhe();
+
     }
 
     private void getNewsFromJuhe() {
@@ -131,7 +131,7 @@ public class NewFragment extends Fragment implements OnClickEvent,SwipeRefreshLa
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();
-                NewsData newsData = gson.fromJson(response.body().string(),NewsData.class);
+                NewsData newsData = gson.fromJson(response.body().string(), NewsData.class);
                 mList = newsData.getResult().getData();
                 mHandler.sendEmptyMessage(MSG_GET_NEWS);
             }

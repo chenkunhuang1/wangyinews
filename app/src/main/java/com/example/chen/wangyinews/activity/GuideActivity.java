@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.example.chen.wangyinews.R;
 import com.example.chen.wangyinews.adapter.ViewPagerAdapter;
+import com.example.chen.wangyinews.fragment.MainFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
         mstart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(GuideActivity.this,MainActivity.class);
+                Intent i = new Intent(GuideActivity.this,TopActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -62,7 +63,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
         miv_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(GuideActivity.this,MainActivity.class);
+                Intent i = new Intent(GuideActivity.this,TopActivity.class);
                 startActivity(i);
                 finish();
             }

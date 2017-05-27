@@ -9,8 +9,6 @@ import android.os.Bundle;
 
 import com.example.chen.wangyinews.R;
 
-import java.sql.Time;
-
 public class Welcome extends AppCompatActivity {
     private static final int GO_HOME = 1000;
     private static final int GO_GUIDE = 1001;
@@ -50,7 +48,7 @@ public class Welcome extends AppCompatActivity {
         }
     }
     private void goHome(){
-        Intent i = new Intent(Welcome.this,MainActivity.class);
+        Intent i = new Intent(Welcome.this,TopActivity.class);
         startActivity(i);
         finish();
     }

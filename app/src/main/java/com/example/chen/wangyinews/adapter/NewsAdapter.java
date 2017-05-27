@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.chen.wangyinews.Inter.OnClickEvent;
 import com.example.chen.wangyinews.R;
+import com.example.chen.wangyinews.activity.WebActivity;
 import com.example.chen.wangyinews.data.NewsData;
 
 

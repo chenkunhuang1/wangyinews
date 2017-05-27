@@ -1,36 +1,74 @@
-package com.example.chen.wangyinews.activity;
+package com.example.chen.wangyinews.fragment;
 
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TabHost;
+import android.widget.TabWidget;
+import android.widget.TextView;
 
 import com.example.chen.wangyinews.R;
 import com.example.chen.wangyinews.adapter.FragmentAdapter;
+import com.example.chen.wangyinews.data.TabDb;
 import com.example.chen.wangyinews.fragment.NewFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainFragment extends Fragment{
     private TabLayout mTabLayout_t;
     private ViewPager mViewPager;
     List<Fragment> fragments = new ArrayList<>();
+    private FragmentAdapter mFragmentAdapter;
+    private List<String> titles;
     /*private List<NewFragment> mNewFragmentList = new ArrayList<NewFragment>();*/
 
-    @Override
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         initViewPager();
 
+    }*/
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initFragmentArrayList();
+        initViewPager();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_main,container,false);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        mTabLayout_t = (TabLayout) view.findViewById(R.id.sliding_tabtop);
+        if (mFragmentAdapter == null){
+            mFragmentAdapter= new FragmentAdapter(getFragmentManager(),fragments,titles);
+        }
+
+        //给ViewPage设置适配器
+        mViewPager.setAdapter(mFragmentAdapter);
+        //将mViewPage与mTabLayout关联
+        mTabLayout_t.setupWithViewPager(mViewPager);
+        mViewPager.setOffscreenPageLimit(10);
+        return view;
     }
 
     private void initViewPager() {
-        mTabLayout_t = (TabLayout) findViewById(R.id.sliding_tabtop);
-        List<String> titles = new ArrayList<>();
+        if (titles == null){
+            titles = new ArrayList<>();
+        }
+
         titles.add("头条");
         titles.add("社会");
         titles.add("国际");
@@ -41,11 +79,12 @@ public class MainActivity extends AppCompatActivity {
         titles.add("科技");
         titles.add("财经");
         titles.add("时尚");
-        for (int i = 0; i < titles.size(); i++) {
-            mTabLayout_t.addTab(mTabLayout_t.newTab().setText(titles.get(i)));
-        }
 
-        initFragmentArrayList();
+        /*for (int i = 0; i < titles.size(); i++) {
+
+            mTabLayout_t.addTab(mTabLayout_t.newTab().setText(titles.get(i)));
+        }*/
+
         /*for (int i = 0; i < titles.size(); i++) {
             fragments.add(fragments.get(i));
         }*/
@@ -53,11 +92,7 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(mNewFragmentList.get(1));
         fragments.add(mNewFragmentList.get(2));
         fragments.add(mNewFragmentList.get(3));*/
-        FragmentAdapter mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),fragments,titles);
-        //给ViewPage设置适配器
-        mViewPager.setAdapter(mFragmentAdapter);
-        //将mViewPage与mTabLayout关联
-        mTabLayout_t.setupWithViewPager(mViewPager);
+
         /*//给TabLayout设置适配器
         mTabLayout_t.setTabsFromPagerAdapter(mFragmentAdapter);*/
     }
@@ -124,4 +159,5 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(fi);
         fragments.add(fj);
     }
+
 }
