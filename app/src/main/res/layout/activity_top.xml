@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_top"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.chen.wangyinews.activity.TopActivity">
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/holo_blue_light"
+        android:id="@+id/top_viewPager">
+    </android.support.v4.view.ViewPager>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:text="新闻"
+            android:textColor="#f00"
+            android:id="@+id/news_tab"
+            android:gravity="center"
+            android:layout_height="50dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="0dp"
+            android:text="笑话"
+            android:id="@+id/joke_tab"
+            android:gravity="center"
+            android:textColor="#00f"
+            android:layout_height="50dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="0dp"
+            android:text="天气"
+            android:id="@+id/weather_tab"
+            android:gravity="center"
+            android:textColor="#00f"
+            android:layout_height="50dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="0dp"
+            android:text="我的"
+            android:id="@+id/my_tab"
+            android:gravity="center"
+            android:textColor="#00f"
+            android:layout_height="50dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+</LinearLayout>
